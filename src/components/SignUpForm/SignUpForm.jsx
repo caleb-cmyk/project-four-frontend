@@ -10,12 +10,15 @@ const SignUpForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
     password: '',
     passwordConf: '',
   });
 
-  const { username, password, passwordConf } = formData;
+  const { email, password, passwordConf, firstName, lastName, phoneNumber } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -34,7 +37,7 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !(email && password && password && firstName && lastName && phoneNumber === passwordConf);
   };
 
   return (
@@ -42,13 +45,49 @@ const SignUpForm = () => {
       <h1>Sign Up</h1>
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username:</label>
+      <div>
+          <label htmlFor='email'>First Name:</label>
           <input
             type='text'
-            id='name'
-            value={username}
-            name='username'
+            id='firstName'
+            value={firstName}
+            name='firstName'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='email'>Last Name:</label>
+          <input
+            type='text'
+            id='lastName'
+            value={lastName}
+            name='lastName'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        {/* Gender */}
+        {/* Date of Birth */}
+        {/* Country */}
+        <div>
+          <label htmlFor='email'>Phone Number:</label>
+          <input
+            type='text'
+            id='phoneNumber'
+            value={phoneNumber}
+            name='phoneNumber'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='email'>Email Address:</label>
+          <input
+            type='text'
+            id='email'
+            value={email}
+            name='email'
             onChange={handleChange}
             required
           />

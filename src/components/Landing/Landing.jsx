@@ -1,8 +1,12 @@
+import Typography from "@mui/material/Typography";
+
 const Landing = () => {
   return (
     <main>
-      <h1>Hello, you are on the landing page for visitors.</h1>
-      <p>Sign up now, or sign in to see your super secret dashboard!</p>
+      <Typography sx={{  justifyContent: "center",
+                      fontSize: "30px",
+                      padding: "15px"}}>come as you, live as us.</Typography>
+      <p></p>
     </main>
   );
 };

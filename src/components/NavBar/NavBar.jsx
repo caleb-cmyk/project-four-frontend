@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
 
   const handleAccount = () => {
     setAnchorElUser(null);
-    navigate("/user/:userId");
+    navigate(`/users/${user._id}`);
   };
 
   const handleYourTrips = () => {

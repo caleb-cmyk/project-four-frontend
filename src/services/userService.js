@@ -1,6 +1,6 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
 
-const index = async () => {
+const localUser = async () => {
   try {
     const res = await fetch(BASE_URL, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -19,6 +19,21 @@ const index = async () => {
   }
 };
 
+const userById = async (userId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
-  index,
+  localUser,
+  userById,
 };

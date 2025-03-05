@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const fetchedUsers = await userService.index();
+        const fetchedUsers = await userService.localUser();
         setUsers(fetchedUsers);
       } catch (err) {
         console.log(err)

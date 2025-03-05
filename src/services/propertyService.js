@@ -7,7 +7,6 @@ const propertyOne = async (propertyId) => {
     });
 
     const data = await res.json();
-    // console.log("RES", data);
 
     return data;
   } catch (error) {

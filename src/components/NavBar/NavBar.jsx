@@ -64,6 +64,11 @@ function ResponsiveAppBar() {
     navigate("/stays");
   };
 
+  const handleYourProperties = () => {
+    setAnchorElUser(null);
+    navigate("/properties");
+  };
+  
   const handleLogout = () => {
     setAnchorElUser(null);
     localStorage.removeItem("token");
@@ -114,7 +119,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -160,6 +164,12 @@ function ResponsiveAppBar() {
                   <MenuItem onClick={handleYourTrips}>
                     <Typography sx={{ textAlign: "left" }}>
                       Your Trips
+                    </Typography>
+                  </MenuItem>
+
+                  <MenuItem onClick={handleYourProperties}>
+                    <Typography sx={{ textAlign: "left" }}>
+                      Your Properties
                     </Typography>
                   </MenuItem>
 

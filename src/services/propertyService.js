@@ -14,4 +14,18 @@ const propertyOne = async (propertyId) => {
   }
 };
 
-export { propertyOne };
+const propertiesHost = async () => {
+  try {
+    const res = await fetch(BASE_URL, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { propertyOne, propertiesHost };

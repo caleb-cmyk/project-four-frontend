@@ -39,6 +39,7 @@ function ResponsiveAppBar() {
     try {
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
+      handleCloseUserMenu();
       setFormData({ email: "", password: "" });
       navigate("/");
     } catch (err) {
@@ -61,14 +62,19 @@ function ResponsiveAppBar() {
 
   const handleYourTrips = () => {
     setAnchorElUser(null);
-    navigate("/stays");
+    navigate("/trips");
+  };
+
+  const handleYourGuests = () => {
+    setAnchorElUser(null);
+    navigate("/guests");
   };
 
   const handleYourProperties = () => {
     setAnchorElUser(null);
     navigate("/properties");
   };
-  
+
   const handleLogout = () => {
     setAnchorElUser(null);
     localStorage.removeItem("token");
@@ -155,98 +161,110 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {user ? (
-                <>
-                  <MenuItem onClick={handleAccount}>
-                    <Typography sx={{ textAlign: "left" }}>Account</Typography>
-                  </MenuItem>
+              {user
+                ? [
+                    <Box key="box">
+                      <MenuItem onClick={handleAccount}>
+                        <Typography sx={{ textAlign: "left" }}>
+                          Account
+                        </Typography>
+                      </MenuItem>
 
-                  <MenuItem onClick={handleYourTrips}>
-                    <Typography sx={{ textAlign: "left" }}>
-                      Your Trips
-                    </Typography>
-                  </MenuItem>
+                      <MenuItem onClick={handleYourTrips}>
+                        <Typography sx={{ textAlign: "left" }}>
+                          Your Trips
+                        </Typography>
+                      </MenuItem>
 
-                  <MenuItem onClick={handleYourProperties}>
-                    <Typography sx={{ textAlign: "left" }}>
-                      Your Properties
-                    </Typography>
-                  </MenuItem>
+                      <MenuItem onClick={handleYourGuests}>
+                        <Typography sx={{ textAlign: "left" }}>
+                          Your Guests
+                        </Typography>
+                      </MenuItem>
 
-                  <MenuItem onClick={handleLogout}>
-                    <Typography sx={{ textAlign: "left" }}>Logout</Typography>
-                  </MenuItem>
-                </>
-              ) : (
-                <>
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "10px",
-                    }}
-                  >
-                    {message}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "350px",
-                      padding: "15px",
-                    }}
-                  >
-                    <form autoComplete="off" onSubmit={handleSignIn}>
-                      <div>
-                        <TextField
-                          sx={{ padding: "0px 0px 20px 0px" }}
-                          label="Email Address"
-                          variant="outlined"
-                          fullWidth
-                          type="text"
-                          autoComplete="off"
-                          id="email"
-                          value={formData.email}
-                          name="email"
-                          onChange={handleChange}
-                          required
-                        />
+                      <MenuItem onClick={handleYourProperties}>
+                        <Typography sx={{ textAlign: "left" }}>
+                          Your Properties
+                        </Typography>
+                      </MenuItem>
 
-                        <TextField
-                          sx={{ padding: "0px 0px 20px 0px" }}
-                          label="Password"
-                          variant="outlined"
-                          fullWidth
-                          type="password"
-                          autoComplete="off"
-                          id="password"
-                          value={formData.password}
-                          name="password"
-                          onChange={handleChange}
-                          required
-                        />
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-around",
-                            width: "350px",
-                          }}
-                        >
-                          <Button variant="outlined" type="submit">
-                            Login
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            onClick={() => navigate("/sign-up")}
-                          >
-                            Sign Up
-                          </Button>
-                        </Box>
-                      </div>
-                    </form>
-                  </Box>
-                </>
-              )}
+                      <MenuItem onClick={handleLogout}>
+                        <Typography sx={{ textAlign: "left" }}>
+                          Logout
+                        </Typography>
+                      </MenuItem>
+                    </Box>,
+                  ]
+                : [
+                    <Box key="box">
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          padding: "10px",
+                        }}
+                      >
+                        {message}
+                      </Typography>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          width: "350px",
+                          padding: "15px",
+                        }}
+                      >
+                        <form autoComplete="off" onSubmit={handleSignIn}>
+                          <div>
+                            <TextField
+                              sx={{ padding: "0px 0px 20px 0px" }}
+                              label="Email Address"
+                              variant="outlined"
+                              fullWidth
+                              type="text"
+                              autoComplete="off"
+                              id="email"
+                              value={formData.email}
+                              name="email"
+                              onChange={handleChange}
+                              required
+                            />
+
+                            <TextField
+                              sx={{ padding: "0px 0px 20px 0px" }}
+                              label="Password"
+                              variant="outlined"
+                              fullWidth
+                              type="password"
+                              autoComplete="off"
+                              id="password"
+                              value={formData.password}
+                              name="password"
+                              onChange={handleChange}
+                              required
+                            />
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                width: "350px",
+                              }}
+                            >
+                              <Button variant="outlined" type="submit">
+                                Login
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                onClick={() => navigate("/sign-up")}
+                              >
+                                Sign Up
+                              </Button>
+                            </Box>
+                          </div>
+                        </form>
+                      </Box>
+                    </Box>,
+                  ]}
             </Menu>
           </Box>
         </Toolbar>

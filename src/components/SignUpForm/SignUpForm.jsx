@@ -142,7 +142,7 @@ const SignUpForm = () => {
             sx={{ padding: "0px 0px 20px 0px" }}
             label="Confirm Password"
             variant="outlined"
-            type="passwordConf"
+            type="password"
             autoComplete="off"
             id="password"
             value={formData.passwordConf}

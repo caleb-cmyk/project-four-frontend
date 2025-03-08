@@ -24,9 +24,19 @@ const Profile = () => {
             </Box>
           ) : (
             <>
+            
               <Typography variant="h2" component="h2">
                 {`${user.user?.firstName} ${user.user?.lastName}`}
               </Typography>
+
+              <Typography variant="h2" component="h2">
+                {`${user.user?.countryOfResidence}`}
+              </Typography>
+
+              <Typography variant="h2" component="h2">
+                {`${user.user?.gender}`}
+              </Typography>
+
             </>
           )}
         </>

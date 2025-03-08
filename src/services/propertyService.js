@@ -28,4 +28,21 @@ const propertiesHost = async () => {
   }
 };
 
-export { propertyOne, propertiesHost };
+const createProperty = async (formData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/new`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+    console.log(data)
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { propertyOne, propertiesHost, createProperty };

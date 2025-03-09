@@ -32,11 +32,21 @@ const HostEventsByProperty = () => {
         (pastEvent) => pastEvent.status === "past"
       );
       setPastHostEvents(pastEvents);
-      console.log("HOSTEVENT", data.hostEventsByPropertyId);
+    //   console.log("HOSTEVENT", data.hostEventsByPropertyId);
     };
     fetchHostEvents();
   }, [propertyId]);
 
+  const handleConfirm = () => {
+    
+    useEffect(() => {
+      const update
+
+    }
+  );
+
+  }
+ 
   return !pendingHostEvents ? (
     <Box sx={{ display: "flex", padding: "50px", justifyContent: "center" }}>
       <CircularProgress />
@@ -47,7 +57,7 @@ const HostEventsByProperty = () => {
         Pending Guests
       </Typography>
       {pendingHostEvents.map((hostEvent) => (
-        <HostEventsCardLarge key={hostEvent.id} hostEvent={hostEvent} />
+        <HostEventsCardLarge handleConfirm={handleConfirm} key={hostEvent.id} hostEvent={hostEvent} />
       ))}
 
       <Typography variant="h2" component="h2">

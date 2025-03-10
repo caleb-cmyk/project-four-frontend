@@ -10,7 +10,6 @@ import PropertyCardSmall from './components/PropertyListing/PropertyCardSmall';
 import PropertyForm from './components/PropertyForm/PropertyForm';
 import Profile from './components/Profile/Profile';
 import SearchBar from './components/SearchBar/SearchBar';
-import HostEvents from './components/HostEvents/HostEvents';
 import { UserContext } from './contexts/UserContext';
 import HostEventsByProperty from './components/HostEvents/HostEventsByProperty';
 
@@ -25,7 +24,6 @@ const App = () => {
         <Route path='/' element={user ? <Dashboard /> : <Landing />} />
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/users/:userId' element={<Profile />} />
-        <Route path='/guests' element={<HostEvents />} />
         <Route path='/properties' element={<UserProperties />} />
         <Route path='/properties/new' element={<PropertyForm />} />
         <Route path='/properties/:propertyId' element={<PropertyListing />} />

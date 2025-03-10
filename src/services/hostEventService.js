@@ -14,6 +14,20 @@ const showHostEvent = async (propertyId) => {
   }
 };
 
+const showHostEventByStatus = async (propertyId, status) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${propertyId}?status=${status}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // const token = localStorage.getItem("token");
 
 // if (!token) {
@@ -87,4 +101,4 @@ const hostEventEditStatus = async (formData, hostEventId) => {
   }
 };
 
-export { hostEventSendRequest, showHostEvent, hostEventEditStatus };
+export { hostEventSendRequest, showHostEvent, hostEventEditStatus, showHostEventByStatus };

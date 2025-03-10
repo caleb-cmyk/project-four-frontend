@@ -27,7 +27,7 @@ const PastHostEvents = () => {
     </Box>
   ) : (
     <>
-      <Typography variant="h2" component="h2">
+      <Typography variant="h2" component="h2" sx={{ margin: "2%", padding: "20px" }}>
         Past Guests
       </Typography>
       {pastHostEvents.map((hostEvent) => (

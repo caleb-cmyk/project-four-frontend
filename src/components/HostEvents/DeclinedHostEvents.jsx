@@ -27,7 +27,7 @@ const DeclinedHostEvents = () => {
     </Box>
   ) : (
     <>
-      <Typography variant="h2" component="h2">
+      <Typography variant="h2" component="h2" sx={{ margin: "2%", padding: "20px" }}>
         Declined Guests
       </Typography>
       {declinedHostEvents.map((hostEvent) => (

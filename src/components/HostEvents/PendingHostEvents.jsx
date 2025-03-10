@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { showHostEventByStatus } from "../../services/hostEventService";
 import { useParams } from "react-router";
+import { updateHostEventStatus } from "../../services/hostEventService";
 import {
   Typography,
   Paper,
@@ -24,13 +25,24 @@ const PendingHostEvents = () => {
     fetchHostEvents();
   }, [propertyId]);
 
-  const handleConfirm = () => {
-    // insert function body
-  };
+const handleConfirm = async (hostEventId) => {
+  try {
+    await updateHostEventStatus({ status: "confirmed" }, hostEventId);
 
-  const handleDecline = () => {
-    // insert function body
-  };
+  } catch (err) {
+    console.error("error:", err.message);
+  }
+};
+
+
+const handleDecline = async (hostEventId) => {
+  try {
+    await updateHostEventStatus({ status: "declined" }, hostEventId);
+
+  } catch (err) {
+    console.error("error:", err.message);
+  }
+};
 
   return !pendingHostEvents ? (
     <Box sx={{ display: "flex", padding: "50px", justifyContent: "center" }}>
@@ -38,7 +50,7 @@ const PendingHostEvents = () => {
     </Box>
   ) : (
     <>
-      <Typography variant="h2" component="h2">
+      <Typography variant="h2" component="h2" sx={{ margin: "2%", padding: "20px" }}>
         New Requests
       </Typography>
       {pendingHostEvents.map((hostEvent) => (
@@ -56,8 +68,8 @@ const PendingHostEvents = () => {
             {hostEvent.dateStart} to {hostEvent.dateEnd}
           </Typography>
 
-          <Button onClick={handleConfirm}>Confirm</Button>
-          <Button onClick={handleDecline}>Decline</Button>
+          <Button onClick={() => handleConfirm(hostEvent._id)}>Confirm</Button>
+          <Button onClick={() => handleDecline(hostEvent._id)}>Decline</Button>
         </Paper>
       ))}
     </>

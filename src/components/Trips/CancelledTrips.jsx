@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { showHostEventByStatus } from "../../services/hostEventService";
 import { useParams } from "react-router";
+import { showHostEventByGuestIdAndStatus } from "../../services/hostEventService";
 import moment from "moment";
 import {
   Typography,
@@ -9,32 +9,34 @@ import {
   Box,
 } from "@mui/material";
 
-const DeclinedHostEvents = () => {
-  const { propertyId } = useParams();
-  const status = "declined";
-  const [declinedHostEvents, setdeclinedHostEvents] = useState([]);
+const CancelledTrips = () => {
+  const status = "cancelled";
+  const { userId } = useParams();
+  const [cancelledHostEvents, setCancelledHostEvents] = useState();
 
   useEffect(() => {
     const fetchHostEvents = async () => {
-      const data = await showHostEventByStatus(propertyId, status);
-      setdeclinedHostEvents(data.hostEventsByPropertyIdAndStatus);
+      const data = await showHostEventByGuestIdAndStatus(userId, status);
+      setCancelledHostEvents(data.hostEventsByGuestIdAndStatus);
+      console.log(data.hostEventsByGuestIdAndStatus);
     };
     fetchHostEvents();
-  }, [propertyId]);
+  }, [userId]);
 
-  return !declinedHostEvents ? (
-    <Box sx={{ display: "flex", padding: "50px", justifyContent: "center" }}>
-      <CircularProgress />
-    </Box>
-  ) : (
-    <>
+    return  !cancelledHostEvents ? (
+      <Box sx={{ display: "flex", padding: "50px", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    ) : (
+      <>
       <Typography variant="h2" component="h2" sx={{ margin: "2%", padding: "20px" }}>
-        Declined Guests
+        Cancelled Trips
       </Typography>
-      {declinedHostEvents.map((hostEvent) => (
+      {cancelledHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
           <Typography variant="h3" component="h3">
-            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} from {hostEvent.guestId.countryOfResidence}
+            Your Host, {hostEvent.hostId.firstName} {hostEvent.hostId.lastName} from{" "}
+            {hostEvent.hostId.countryOfResidence}
           </Typography>
 
           <Typography variant="h4" component="h4">
@@ -44,11 +46,10 @@ const DeclinedHostEvents = () => {
           <Typography variant="h4" component="h4">
           {moment(hostEvent.dateStart).format("dddd, Do MMM YYYY")} - {moment(hostEvent.dateEnd).format("dddd, Do MMM YYYY")}
           </Typography>
-
         </Paper>
       ))}
     </>
-  );
+    );
 };
 
-export default DeclinedHostEvents;
+export default CancelledTrips;

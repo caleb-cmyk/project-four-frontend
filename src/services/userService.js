@@ -33,7 +33,23 @@ const userById = async (userId) => {
   }
 };
 
+const deleteUserById = async (userId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   localUser,
   userById,
+  deleteUserById,
 };

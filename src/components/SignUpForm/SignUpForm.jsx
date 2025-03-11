@@ -71,8 +71,8 @@ const SignUpForm = () => {
       </Typography>
       <Typography
         sx={{ textAlign: "center", padding: "10px" }}
-        variant="h3"
-        component="h3"
+        variant="h4"
+        component="h4"
       >
         {message}
       </Typography>

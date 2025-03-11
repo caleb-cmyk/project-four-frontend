@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { showHostEventByStatus } from "../../services/hostEventService";
 import { useParams } from "react-router";
+import moment from "moment";
 import {
   Typography,
   Paper,
@@ -33,8 +34,7 @@ const PastHostEvents = () => {
       {pastHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
           <Typography variant="h3" component="h3">
-            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} from{" "}
-            {hostEvent.guestId.countryOfResidence}
+            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} from {hostEvent.guestId.countryOfResidence}
           </Typography>
 
           <Typography variant="h4" component="h4">
@@ -42,7 +42,7 @@ const PastHostEvents = () => {
           </Typography>
 
           <Typography variant="h4" component="h4">
-            {hostEvent.dateStart} to {hostEvent.dateEnd}
+          {moment(hostEvent.dateStart).format("dddd, Do MMM YYYY")} - {moment(hostEvent.dateEnd).format("dddd, Do MMM YYYY")}
           </Typography>
 
         </Paper>

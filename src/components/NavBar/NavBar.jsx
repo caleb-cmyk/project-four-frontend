@@ -62,12 +62,7 @@ function ResponsiveAppBar() {
 
   const handleYourTrips = () => {
     setAnchorElUser(null);
-    navigate("/trips");
-  };
-
-  const handleYourGuests = () => {
-    setAnchorElUser(null);
-    navigate("/guests");
+    navigate(`/trips/${user._id}`);
   };
 
   const handleYourProperties = () => {
@@ -173,12 +168,6 @@ function ResponsiveAppBar() {
                       <MenuItem onClick={handleYourTrips}>
                         <Typography sx={{ textAlign: "left" }}>
                           Your Trips
-                        </Typography>
-                      </MenuItem>
-
-                      <MenuItem onClick={handleYourGuests}>
-                        <Typography sx={{ textAlign: "left" }}>
-                          Your Guests
                         </Typography>
                       </MenuItem>
 

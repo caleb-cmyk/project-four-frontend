@@ -6,6 +6,7 @@ import RejectedHostEvents from "./DeclinedHostEvents";
 import CancelledHostEvents from "./CancelledHostEvents";
 
 const HostEventsByProperty = () => {
+
   return (
     <>
       <PendingHostEvents />

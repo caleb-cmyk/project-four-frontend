@@ -22,7 +22,27 @@ const showHostEventByStatus = async (propertyId, status) => {
   }
 
   try {
-    const res = await fetch(`${BASE_URL}/${propertyId}?status=${status}`, {
+    const res = await fetch(`${BASE_URL}/property/${propertyId}?status=${status}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const showHostEventByGuestIdAndStatus = async (guestId, status) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Unauthorised.");
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/trips/${guestId}?status=${status}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
 
@@ -114,4 +134,5 @@ export {
   hostEventEditStatus,
   showHostEventByStatus,
   updateHostEventStatus,
+  showHostEventByGuestIdAndStatus,
 };

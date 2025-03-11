@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { showHostEventByStatus } from "../../services/hostEventService";
 import { useParams } from "react-router";
+import { showHostEventByGuestIdAndStatus } from "../../services/hostEventService";
 import { updateHostEventStatus } from "../../services/hostEventService";
 import moment from "moment";
 import {
@@ -11,18 +11,19 @@ import {
   Button,
 } from "@mui/material";
 
-const ConfirmedHostEvents = () => {
-  const { propertyId } = useParams();
+const ConfirmedTrips = () => {
   const status = "confirmed";
-  const [confirmedHostEvents, setConfirmedHostEvents] = useState([]);
+  const { userId } = useParams();
+  const [confirmedHostEvents, setConfirmedHostEvents] = useState();
 
   useEffect(() => {
     const fetchHostEvents = async () => {
-      const data = await showHostEventByStatus(propertyId, status);
-      setConfirmedHostEvents(data.hostEventsByPropertyIdAndStatus);
+      const data = await showHostEventByGuestIdAndStatus(userId, status);
+      setConfirmedHostEvents(data.hostEventsByGuestIdAndStatus);
+      console.log(data.hostEventsByGuestIdAndStatus);
     };
     fetchHostEvents();
-  }, [propertyId]);
+  }, [userId]);
 
   const handleCancel = async (hostEventId) => {
     try {
@@ -33,21 +34,20 @@ const ConfirmedHostEvents = () => {
     }
   };
 
-  return !confirmedHostEvents ? (
-    <>
-    <Box sx={{ display: "flex", padding: "50px", justifyContent: "center" }}>
-      <CircularProgress />
-    </Box>
-        </>
-  ) : (
-    <>
-      <Typography sx={{ margin: "2%", padding: "20px" }} variant="h2" component="h2">
-        Current Guests
+    return  !confirmedHostEvents ? (
+      <Box sx={{ display: "flex", padding: "50px", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    ) : (
+      <>
+      <Typography variant="h2" component="h2" sx={{ margin: "2%", padding: "20px" }}>
+        Confirmed Requests
       </Typography>
       {confirmedHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
           <Typography variant="h3" component="h3">
-            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} from {hostEvent.guestId.countryOfResidence}
+          Your Host, {hostEvent.hostId.firstName} {hostEvent.hostId.lastName} from{" "}
+            {hostEvent.hostId.countryOfResidence}
           </Typography>
 
           <Typography variant="h4" component="h4">
@@ -62,7 +62,7 @@ const ConfirmedHostEvents = () => {
         </Paper>
       ))}
     </>
-  );
+    );
 };
 
-export default ConfirmedHostEvents;
+export default ConfirmedTrips;

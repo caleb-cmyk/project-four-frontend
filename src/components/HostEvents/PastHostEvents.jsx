@@ -7,6 +7,7 @@ import {
   Paper,
   CircularProgress,
   Box,
+  Link,
 } from "@mui/material";
 
 const PastHostEvents = () => {
@@ -34,7 +35,10 @@ const PastHostEvents = () => {
       {pastHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
           <Typography variant="h3" component="h3">
-            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} from {hostEvent.guestId.countryOfResidence}
+            <Link underline="none" href={`/users/${hostEvent.guestId._id}`}>
+            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} {}
+            </Link>
+            from {hostEvent.guestId.countryOfResidence}
           </Typography>
 
           <Typography variant="h4" component="h4">

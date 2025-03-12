@@ -9,6 +9,7 @@ import {
   CircularProgress,
   Box,
   Button,
+  Link,
 } from "@mui/material";
 
 const PendingTrips = () => {
@@ -45,9 +46,15 @@ const PendingTrips = () => {
       </Typography>
       {pendingHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
-          <Typography variant="h3" component="h3">
-          Your Host, {hostEvent.hostId.firstName} {hostEvent.hostId.lastName} from{" "}
-            {hostEvent.hostId.countryOfResidence}
+           <Typography variant="h3" component="h3">
+          {hostEvent.propertyId.propertyName} in {hostEvent.propertyId.countryOfProperty}
+          </Typography>
+          
+          <Typography variant="h4" component="h4">
+          Your Host, 
+          <Link underline="none" href={`/users/${hostEvent.hostId._id}`}>
+          {} {hostEvent.hostId.firstName} {hostEvent.hostId.lastName}
+          </Link>
           </Typography>
 
           <Typography variant="h4" component="h4">

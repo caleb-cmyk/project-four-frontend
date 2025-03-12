@@ -3,11 +3,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 
 const SearchBar = () => {
-  const handleSearch = () => {
-    console.log("search");
+  const [formData, setFormData] = useState();
+
+  const handleSearch = async (evt) => {
+  //   evt.preventDefault();
+  //   try {
+  //     await hostEventSendRequest(formData);
+  //     console.log(formData);
+  //   } catch (err) {
+  //     setMessage(err.message);
+  //   }
   };
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+  };
 
   return (
     <>

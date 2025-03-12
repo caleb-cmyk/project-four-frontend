@@ -9,6 +9,7 @@ import {
   CircularProgress,
   Box,
   Button,
+  Link,
 } from "@mui/material";
 
 const PendingHostEvents = () => {
@@ -20,8 +21,6 @@ const PendingHostEvents = () => {
     const fetchHostEvents = async () => {
       const data = await showHostEventByStatus(propertyId, status);
       setpendingHostEvents(data.hostEventsByPropertyIdAndStatus);
-      console.log(data.hostEventsByPropertyIdAndStatus);
-      console.log("TEST", data.hostEventsByPropertyIdAndStatus);
     };
     fetchHostEvents();
   }, [propertyId]);
@@ -57,7 +56,10 @@ const handleDecline = async (hostEventId) => {
       {pendingHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
           <Typography variant="h3" component="h3">
-            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} from {hostEvent.guestId.countryOfResidence}
+            <Link underline="none" href={`/users/${hostEvent.guestId._id}`}>
+            {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} {}
+            </Link>
+            from {hostEvent.guestId.countryOfResidence}
           </Typography>
 
           <Typography variant="h4" component="h4">

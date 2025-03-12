@@ -7,6 +7,7 @@ import {
   Paper,
   CircularProgress,
   Box,
+  Link,
 } from "@mui/material";
 
 const CancelledTrips = () => {
@@ -18,7 +19,6 @@ const CancelledTrips = () => {
     const fetchHostEvents = async () => {
       const data = await showHostEventByGuestIdAndStatus(userId, status);
       setCancelledHostEvents(data.hostEventsByGuestIdAndStatus);
-      console.log(data.hostEventsByGuestIdAndStatus);
     };
     fetchHostEvents();
   }, [userId]);
@@ -35,8 +35,14 @@ const CancelledTrips = () => {
       {cancelledHostEvents.map((hostEvent) => (
         <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
           <Typography variant="h3" component="h3">
-            Your Host, {hostEvent.hostId.firstName} {hostEvent.hostId.lastName} from{" "}
-            {hostEvent.hostId.countryOfResidence}
+          {hostEvent.propertyId.propertyName} in {hostEvent.propertyId.countryOfProperty}
+          </Typography>
+          
+          <Typography variant="h4" component="h4">
+          Your Host, 
+          <Link underline="none" href={`/users/${hostEvent.hostId._id}`}>
+          {} {hostEvent.hostId.firstName} {hostEvent.hostId.lastName}
+          </Link>
           </Typography>
 
           <Typography variant="h4" component="h4">

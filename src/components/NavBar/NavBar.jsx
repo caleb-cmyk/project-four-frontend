@@ -17,6 +17,7 @@ import {
   Button,
   MenuItem,
   TextField,
+  Divider,
 } from "@mui/material";
 
 function ResponsiveAppBar() {
@@ -159,6 +160,10 @@ function ResponsiveAppBar() {
               {user
                 ? [
                     <Box key="box">
+                      <Typography sx={{ textAlign: "left", padding:"10px" }}>
+                          Hello, {user.firstName} {user.lastName}
+                        </Typography>
+                        <Divider />
                       <MenuItem onClick={handleAccount}>
                         <Typography sx={{ textAlign: "left" }}>
                           Account

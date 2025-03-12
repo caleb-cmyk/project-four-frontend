@@ -1,11 +1,14 @@
-import { useNavigate } from "react-router";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { hostEventSendRequest } from "../../services/hostEventService";
-import { UserContext } from "../../contexts/UserContext";
-import { Box, Typography, Button, TextField } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 const BookingForm = ({ property }) => {
-  const navigate = useNavigate();
+  dayjs.extend(isSameOrBefore);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     hostId: property.propertyById.hostId._id,
@@ -15,16 +18,18 @@ const BookingForm = ({ property }) => {
   });
   const { dateStart, dateEnd } = formData;
 
-  const handleChange = (evt) => {
-    setMessage("");
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
-  };
-
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    const dateStartSubmitted = formData.dateStart;
+    const dateEndSubmitted = formData.dateEnd;
+    if (dayjs(dateEndSubmitted).isSameOrBefore(dateStartSubmitted)) {
+      setMessage("Please select an end date after your start date");
+      return;
+    }
+
     try {
       await hostEventSendRequest(formData);
-      console.log(formData);
+      setMessage("Request Sent!");
     } catch (err) {
       setMessage(err.message);
     }
@@ -34,34 +39,31 @@ const BookingForm = ({ property }) => {
     return !(dateStart && dateEnd);
   };
 
+  const handleDateStartChange = (date) => {
+    setFormData({ ...formData, dateStart: date.format("YYYY-MM-DD") });
+  };
+  const handleDateEndChange = (date) => {
+    setFormData({ ...formData, dateEnd: date.format("YYYY-MM-DD") });
+  };
+
   return (
     <Box>
       <Typography>{message}</Typography>
       <form onSubmit={handleSubmit}>
-        <TextField
-          sx={{ padding: "0px 0px 20px 0px" }}
-          label="Date From YYYY-MM-DD"
-          variant="outlined"
-          type="text"
-          autoComplete="off"
-          id="dateStart"
-          onChange={handleChange}
-          value={formData.dateStart}
-          name="dateStart"
-          required
-        />
-        <TextField
-          sx={{ padding: "0px 0px 20px 0px" }}
-          label="Date To YYYY-MM-DD"
-          variant="outlined"
-          type="text"
-          autoComplete="off"
-          id="dateEnd"
-          onChange={handleChange}
-          value={formData.dateEnd}
-          name="dateEnd"
-          required
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Typography>Select Start Date</Typography>
+          <DatePicker
+            onChange={(date) => handleDateStartChange(date)}
+            showDaysOutsideCurrentMonth
+            disablePast
+          />
+          <Typography>Select End Date</Typography>
+          <DatePicker
+            onChange={(date) => handleDateEndChange(date)}
+            showDaysOutsideCurrentMonth
+            disablePast
+          />
+        </LocalizationProvider>
         <Button variant="outlined" type="submit" disabled={isFormInvalid()}>
           Request
         </Button>
@@ -71,3 +73,7 @@ const BookingForm = ({ property }) => {
 };
 
 export default BookingForm;
+
+// https://mui.com/x/react-date-pickers/validation/
+// https://stackoverflow.com/questions/62243151/dayjs-to-js-date-for-mongo
+// https://day.js.org/docs/en/display/format

@@ -8,8 +8,8 @@ const [properties, setProperties] = useState([]);
 
 useEffect(() => {
     const fetchProperty = async () => {
-      const data = await propertiesHost();
-      setProperties(data.propertiesByHostId);
+        const data = await propertiesHost();
+        setProperties(data.propertiesByHostId);
     };
     fetchProperty();
   }, []);

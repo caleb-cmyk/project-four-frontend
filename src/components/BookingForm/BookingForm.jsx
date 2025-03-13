@@ -47,6 +47,21 @@ const BookingForm = ({ property }) => {
     setFormData({ ...formData, dateEnd: date.format("YYYY-MM-DD") });
   };
 
+  // https://stackoverflow.com/questions/71153388/how-to-disable-list-of-dates-in-mui-date-picker
+
+  const unavailableDates = (date) => {
+    let blackoutDates = [{dateStart: "2025-03-15", dateEnd: "2025-03-18"}];
+    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+    // if formattedDate isBetween dateStart and dateEnd
+    return dayjs(formattedDate).isBetween(dayjs(blackoutDates[0].dateStart), dayjs(blackoutDates[0].dateEnd), null, "[)");
+  };
+
+  // const unavailableDates = (date) => {
+  //   let blackoutDates = ["2025-03-15", "2025-03-18"];
+  //   const formattedDate = dayjs(date).format("YYYY-MM-DD");
+  //   return blackoutDates.includes(formattedDate);
+  // };
+
   return (
     <Box>
       <Typography>{message}</Typography>
@@ -57,12 +72,14 @@ const BookingForm = ({ property }) => {
             onChange={(date) => handleDateStartChange(date)}
             showDaysOutsideCurrentMonth
             disablePast
+            shouldDisableDate={unavailableDates}
           />
           <Typography>Select End Date</Typography>
           <DatePicker
             onChange={(date) => handleDateEndChange(date)}
             showDaysOutsideCurrentMonth
             disablePast
+            shouldDisableDate={unavailableDates}
           />
         </LocalizationProvider>
         <Button variant="outlined" type="submit" disabled={isFormInvalid()}>

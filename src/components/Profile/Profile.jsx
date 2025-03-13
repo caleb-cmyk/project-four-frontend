@@ -31,6 +31,7 @@ const Profile = () => {
     try {
     await deleteUserById(authorisedUser);
     localStorage.removeItem("token");
+    navigate("/");
   } catch (err) {
     console.error("error:", err.message);
   }

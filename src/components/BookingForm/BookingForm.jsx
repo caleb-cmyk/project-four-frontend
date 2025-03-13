@@ -20,6 +20,7 @@ const BookingForm = ({ property }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    
     const dateStartSubmitted = formData.dateStart;
     const dateEndSubmitted = formData.dateEnd;
     if (dayjs(dateEndSubmitted).isSameOrBefore(dateStartSubmitted)) {

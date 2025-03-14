@@ -20,7 +20,7 @@ const BookingForm = ({ property }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    
+
     const dateStartSubmitted = formData.dateStart;
     const dateEndSubmitted = formData.dateEnd;
     if (dayjs(dateEndSubmitted).isSameOrBefore(dateStartSubmitted)) {
@@ -50,11 +50,32 @@ const BookingForm = ({ property }) => {
   // https://stackoverflow.com/questions/71153388/how-to-disable-list-of-dates-in-mui-date-picker
 
   const unavailableDates = (date) => {
-    let blackoutDates = [{dateStart: "2025-03-15", dateEnd: "2025-03-18"}];
+    let blackoutDates = [
+      { dateStart: "2025-03-15", dateEnd: "2025-03-18" },
+      { dateStart: "2025-03-20", dateEnd: "2025-03-23" },
+      { dateStart: "2025-03-25", dateEnd: "2025-03-28" },
+    ];
     const formattedDate = dayjs(date).format("YYYY-MM-DD");
-    // if formattedDate isBetween dateStart and dateEnd
-    return dayjs(formattedDate).isBetween(dayjs(blackoutDates[0].dateStart), dayjs(blackoutDates[0].dateEnd), null, "[)");
-  };
+
+    // SIMON HELP ================================ return false, return false, return false instead of return [false, false, false]
+
+    return blackoutDates.map((date) => (
+      dayjs(formattedDate).isBetween(
+          dayjs(date.dateStart),
+          dayjs(date.dateEnd),
+          null,
+          "[)"
+        )
+    ));
+    
+    // return dayjs(formattedDate).isBetween(
+      //   dayjs(blackoutDates[0].dateStart),
+      //   dayjs(blackoutDates[0].dateEnd),
+      //   null,
+      //   "[)"
+      // );
+      
+    };
 
   // const unavailableDates = (date) => {
   //   let blackoutDates = ["2025-03-15", "2025-03-18"];

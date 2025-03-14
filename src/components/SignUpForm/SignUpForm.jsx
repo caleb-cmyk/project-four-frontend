@@ -2,12 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { signUp } from "../../services/authService";
 import { UserContext } from "../../contexts/UserContext";
-import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-} from "@mui/material";
+import { Box, Switch, Typography, Button, TextField } from "@mui/material";
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -23,11 +19,21 @@ const SignUpForm = () => {
     phoneNumber: "",
     dateOfBirth: "",
     countryOfResidence: "",
-    gender: ""
+    gender: "",
   });
 
-  const { firstName, lastName, email, password, passwordConf, phoneCountry, phoneNumber, dateOfBirth, countryOfResidence, gender } =
-    formData;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConf,
+    phoneCountry,
+    phoneNumber,
+    dateOfBirth,
+    countryOfResidence,
+    gender,
+  } = formData;
 
   const handleChange = (evt) => {
     setMessage("");
@@ -216,6 +222,9 @@ const SignUpForm = () => {
             required
           />
 
+          {/* <Switch label="Do you have a place to host?" /> */}
+          <FormControlLabel control={<Switch />} label="Do you have a place to host?" />
+
           <Box
             sx={{
               display: "flex",
@@ -223,13 +232,11 @@ const SignUpForm = () => {
               width: "350px",
             }}
           >
-            <Button
-              variant="outlined"
-              type="submit"
-              disabled={isFormInvalid()}
-            >
+
+            <Button variant="outlined" type="submit" disabled={isFormInvalid()} sx={{margin: "20px"}}>
               Sign Up
             </Button>
+            
           </Box>
         </div>
       </form>

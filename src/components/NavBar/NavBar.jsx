@@ -160,10 +160,10 @@ function ResponsiveAppBar() {
               {user
                 ? [
                     <Box key="box">
-                      <Typography sx={{ textAlign: "left", padding:"10px" }}>
-                          Hello, {user.firstName} {user.lastName}
-                        </Typography>
-                        <Divider />
+                      <Typography sx={{ textAlign: "left", padding: "10px" }}>
+                        Hello, {user.firstName} {user.lastName}
+                      </Typography>
+                      <Divider />
                       <MenuItem onClick={handleAccount}>
                         <Typography sx={{ textAlign: "left" }}>
                           Account
@@ -177,9 +177,11 @@ function ResponsiveAppBar() {
                       </MenuItem>
 
                       <MenuItem onClick={handleYourProperties}>
-                        <Typography sx={{ textAlign: "left" }}>
-                          Your Properties
-                        </Typography>
+                        {user.userType === "Host" && (
+                          <Typography sx={{ textAlign: "left" }}>
+                            Your Properties
+                          </Typography>
+                        )}
                       </MenuItem>
 
                       <MenuItem onClick={handleLogout}>

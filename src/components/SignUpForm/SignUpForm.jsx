@@ -20,6 +20,7 @@ const SignUpForm = () => {
     dateOfBirth: "",
     countryOfResidence: "",
     gender: "",
+    userType: "Guest",
   });
 
   const {
@@ -33,11 +34,16 @@ const SignUpForm = () => {
     dateOfBirth,
     countryOfResidence,
     gender,
+    userType,
   } = formData;
 
   const handleChange = (evt) => {
     setMessage("");
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
+
+  const handleSwitchChange = (evt) => {
+    setFormData({ ...formData, userType: evt.target.checked ? "Host Pending" : "Guest" });
   };
 
   const handleSignUp = async (evt) => {
@@ -222,8 +228,10 @@ const SignUpForm = () => {
             required
           />
 
-          {/* <Switch label="Do you have a place to host?" /> */}
-          <FormControlLabel control={<Switch />} label="Do you have a place to host?" />
+          <FormControlLabel
+            control={<Switch checked={userType === "Host Pending"} onChange={handleSwitchChange} />}
+            label="Do you have a place to host?"
+          />
 
           <Box
             sx={{
@@ -236,7 +244,7 @@ const SignUpForm = () => {
             <Button variant="outlined" type="submit" disabled={isFormInvalid()} sx={{margin: "20px"}}>
               Sign Up
             </Button>
-            
+
           </Box>
         </div>
       </form>

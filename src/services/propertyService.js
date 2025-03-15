@@ -45,4 +45,19 @@ const createProperty = async (formData) => {
   }
 };
 
-export { propertyOne, propertiesHost, createProperty };
+const propertiesByLocation = async (formData) => {
+  try {
+    const propertyLocation = formData.location
+    const res = await fetch(`${BASE_URL}/search/search?propertyLocation=${propertyLocation}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { propertyOne, propertiesHost, createProperty, propertiesByLocation };

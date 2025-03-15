@@ -1,17 +1,18 @@
 import { TextField, Box, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
-import { showHostEventByPropertyLocation } from "../../services/hostEventService";
+import { propertiesByLocation } from "../../services/propertyService";
 
 const SearchBar = () => {
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({});
   const [message, setMessage] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const fetchProperties = await showHostEventByPropertyLocation(formData);
-      console.log(fetchProperties);
+      const fetchProperties = await propertiesByLocation(formData);
+      console.log("formdata", formData);
+      console.log("FETCH", fetchProperties);
       setMessage("");
       // navigate("/")
     } catch (err) {

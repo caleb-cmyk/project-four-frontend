@@ -176,13 +176,13 @@ function ResponsiveAppBar() {
                         </Typography>
                       </MenuItem>
 
-                      <MenuItem onClick={handleYourProperties}>
-                        {user.userType === "Host" && (
+                      {user.userType === "Host" && (
+                        <MenuItem onClick={handleYourProperties}>
                           <Typography sx={{ textAlign: "left" }}>
                             Your Properties
                           </Typography>
-                        )}
-                      </MenuItem>
+                        </MenuItem>
+                      )}
 
                       <MenuItem onClick={handleLogout}>
                         <Typography sx={{ textAlign: "left" }}>

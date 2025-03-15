@@ -132,10 +132,31 @@ const hostEventEditStatus = async (formData, hostEventId) => {
   }
 };
 
+const showHostEventByPropertyLocation = async (location) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("Unauthorised.");
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/properties/?location=${location}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   hostEventSendRequest,
   hostEventEditStatus,
   showHostEventByStatus,
   updateHostEventStatus,
   showHostEventByGuestIdAndStatus,
+  showHostEventByPropertyLocation,
 };

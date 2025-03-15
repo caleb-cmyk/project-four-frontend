@@ -83,6 +83,8 @@ const BookingForm = ({ property }) => {
   //   return blackoutDates.includes(formattedDate);
   // };
 
+  // return each individual dates from a range of dates and append into array
+
   return (
     <Box>
       <Typography>{message}</Typography>

@@ -10,6 +10,7 @@ useEffect(() => {
     const fetchProperty = async () => {
         const data = await propertiesHost();
         setProperties(data.propertiesByHostId);
+        console.log("TETTAT", data.propertiesByHostId);
     };
     fetchProperty();
   }, []);

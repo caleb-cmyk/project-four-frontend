@@ -12,6 +12,7 @@ import Profile from "./components/Profile/Profile";
 import SearchBar from "./components/SearchBar/SearchBar";
 import { UserContext } from "./contexts/UserContext";
 import HostEventsByProperty from "./components/HostEvents/HostEventsByProperty";
+import Search from "./components/SearchBar/Search";
 import { Typography } from "@mui/material";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/properties" element={<UserProperties />} />
         <Route path="/properties/new" element={<PropertyForm />} />
         <Route path="/properties/:propertyId" element={<PropertyListing />} />
+        <Route path="/search" element={<Search />} />
         <Route
           path="/properties/requests/:propertyId"
           element={<HostEventsByProperty />}

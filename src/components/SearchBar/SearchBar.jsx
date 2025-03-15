@@ -1,23 +1,18 @@
 import { TextField, Box, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { propertiesByLocation } from "../../services/propertyService";
 
 const SearchBar = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    try {
-      const fetchProperties = await propertiesByLocation(formData);
-      console.log("formdata", formData);
-      console.log("FETCH", fetchProperties);
-      setMessage("");
-      // navigate("/")
-    } catch (err) {
-      setMessage(err.message);
-    }
+    console.log(formData.location);
+    navigate(`/search?propertyLocation=${formData.location}`)
   };
 
   const handleChange = (e) => {

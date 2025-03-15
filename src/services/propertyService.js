@@ -45,10 +45,10 @@ const createProperty = async (formData) => {
   }
 };
 
-const propertiesByLocation = async (formData) => {
+
+const propertiesByLocation = async (propertyLocation) => {
   try {
-    const propertyLocation = formData.location
-    const res = await fetch(`${BASE_URL}/search/search?propertyLocation=${propertyLocation}`, {
+    const res = await fetch(`${BASE_URL}/search?propertyLocation=${propertyLocation}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
 

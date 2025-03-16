@@ -2,7 +2,6 @@ import { TextField, Box, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { propertiesByLocation } from "../../services/propertyService";
 
 const SearchBar = () => {
   const navigate = useNavigate();

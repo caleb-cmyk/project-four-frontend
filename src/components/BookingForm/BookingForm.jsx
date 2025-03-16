@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { hostEventSendRequest } from "../../services/hostEventService";
 import { Box, Typography, Button } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import { showHostEventByStatus } from "../../services/hostEventService";
 
 const BookingForm = ({ property }) => {
   dayjs.extend(isSameOrBefore);
@@ -48,42 +49,41 @@ const BookingForm = ({ property }) => {
   };
 
   // https://stackoverflow.com/questions/71153388/how-to-disable-list-of-dates-in-mui-date-picker
+  // https://stackoverflow.com/questions/4413590/javascript-get-array-of-dates-between-2-dates
 
-  const unavailableDates = (date) => {
-    let blackoutDates = [
-      { dateStart: "2025-03-15", dateEnd: "2025-03-18" },
-      { dateStart: "2025-03-20", dateEnd: "2025-03-23" },
-      { dateStart: "2025-03-25", dateEnd: "2025-03-28" },
-    ];
-    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+  const propertyId = property.propertyById._id;
+  const status = "confirmed";
+  const [blackoutDates, setBlackoutDates] = useState();
+  
+  useEffect(() => {
+    const fetchHostEvents = async () => {
+      try {
+        const data = await showHostEventByStatus(propertyId, status);
+        const blackoutDatesArray = [];
 
-    // SIMON HELP ================================ return false, return false, return false instead of return [false, false, false]
+        for (let i = 0; i < data.hostEventsByPropertyIdAndStatus.length; i++) {
+          let startDate = dayjs(data.hostEventsByPropertyIdAndStatus[i].dateStart);
+          const endDate = dayjs(data.hostEventsByPropertyIdAndStatus[i].dateEnd);
 
-    return blackoutDates.map((date) => (
-      dayjs(formattedDate).isBetween(
-          dayjs(date.dateStart),
-          dayjs(date.dateEnd),
-          null,
-          "[)"
-        )
-    ));
-    
-    // return dayjs(formattedDate).isBetween(
-      //   dayjs(blackoutDates[0].dateStart),
-      //   dayjs(blackoutDates[0].dateEnd),
-      //   null,
-      //   "[)"
-      // );
-      
+          while (startDate.isSameOrBefore(endDate)) {
+            blackoutDatesArray.push(startDate.format("YYYY-MM-DD"));
+            startDate = startDate.add(1, "day");
+          }
+        }
+
+        setBlackoutDates(blackoutDatesArray);
+      } catch (err) {
+        console.error("error:", err.message);
+      }
     };
 
-  // const unavailableDates = (date) => {
-  //   let blackoutDates = ["2025-03-15", "2025-03-18"];
-  //   const formattedDate = dayjs(date).format("YYYY-MM-DD");
-  //   return blackoutDates.includes(formattedDate);
-  // };
+    fetchHostEvents();
+  }, [propertyId]);
 
-  // return each individual dates from a range of dates and append into array
+  const unavailableDates = (date) => {
+    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+    return blackoutDates.includes(formattedDate);
+  };
 
   return (
     <Box>

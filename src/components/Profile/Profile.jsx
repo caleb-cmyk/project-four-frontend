@@ -75,15 +75,12 @@ const Profile = () => {
             {`${user.user.gender}, birthed ${formatDate(user.user.dateOfBirth)}`}
           </Typography>
 
-
-{/* CHECK WITH SIMON: IS AUTHENTICATING HERE OKAY? */}
-
           {authorisedUser === userId && (
             <Box sx={{ textAlign: "center", marginTop: "20px" }}>
-              <Button>
+              <Button sx={{margin: "10px"}}>
                 Edit Profile
               </Button>
-              <Button onClick={() => handleDelete(authorisedUser)}>
+              <Button onClick={() => handleDelete(authorisedUser)} sx={{margin: "10px"}}>
                 Delete Account
               </Button>
             </Box>)}

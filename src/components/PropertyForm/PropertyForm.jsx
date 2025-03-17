@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import { useContext, useState } from "react";
-import { hostEventSendRequest } from "../../services/hostEventService";
 import { UserContext } from "../../contexts/UserContext";
 import { createProperty } from "../../services/propertyService";
 import { Box, Typography, Button, TextField } from "@mui/material";
@@ -27,7 +26,6 @@ const PropertyForm = ({ property }) => {
     evt.preventDefault();
     try {
       await createProperty(formData);
-      console.log(formData);
     } catch (err) {
       setMessage(err.message);
     }
@@ -100,6 +98,7 @@ const PropertyForm = ({ property }) => {
             variant="outlined"
             type="submit"
             disabled={isFormInvalid()}
+            onClick={() => navigate("/properties")}
           >
             Post
           </Button>

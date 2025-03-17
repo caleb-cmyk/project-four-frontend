@@ -31,13 +31,16 @@ const propertiesHost = async () => {
 const createProperty = async (formData) => {
   try {
     const res = await fetch(`${BASE_URL}/new`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
       body: JSON.stringify(formData),
     });
 
     const data = await res.json();
-    console.log(data)
+    console.log(data);
 
     return data;
   } catch (error) {
@@ -45,12 +48,14 @@ const createProperty = async (formData) => {
   }
 };
 
-
 const propertiesByLocation = async (propertyLocation) => {
   try {
-    const res = await fetch(`${BASE_URL}/search?propertyLocation=${propertyLocation}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    const res = await fetch(
+      `${BASE_URL}/search?propertyLocation=${propertyLocation}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
 
     const data = await res.json();
 

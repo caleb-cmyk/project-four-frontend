@@ -33,14 +33,14 @@ const DeclinedTrips = () => {
         Declined Requests
       </Typography>
       {declinedHostEvents.map((hostEvent) => (
-        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
+        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px", backgroundColor: "#fff1e3" }}>
           <Typography variant="h3" component="h3">
           {hostEvent.propertyId.propertyName} in {hostEvent.propertyId.countryOfProperty}
           </Typography>
           
           <Typography variant="h4" component="h4">
           Your Host, 
-          <Link underline="none" href={`/users/${hostEvent.hostId._id}`}>
+          <Link sx={{color:"lightgrey"}} underline="none" href={`/users/${hostEvent.hostId._id}`}>
           {} {hostEvent.hostId.firstName} {hostEvent.hostId.lastName}
           </Link>
           </Typography>

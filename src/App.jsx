@@ -14,12 +14,70 @@ import { UserContext } from "./contexts/UserContext";
 import HostEventsByProperty from "./components/HostEvents/HostEventsByProperty";
 import Search from "./components/SearchBar/Search";
 import { Typography } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const App = () => {
   const { user } = useContext(UserContext);
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#ffe4ca",
+      },
+      secondary: {
+        main: "#ff580a"
+      }
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "#ffe4ca",
+            color: "black",
+            "&:hover": {
+              backgroundColor: "#e3cbb3",
+            },
+          },
+        },
+      },
+    },
+
+    typography: {
+      fontFamily: "Quicksand, Arial, sans-serif",
+      h1: {
+        fontSize: "3.5rem",
+        fontWeight: 700,
+      },
+      h2: {
+        fontSize: "3rem",
+        fontWeight: 500,
+      },
+      h3: {
+        fontSize: "2.5rem",
+        fontWeight: 450,
+      },
+      h4: {
+        fontSize: "1.5rem",
+      },
+      h5: {
+        fontSize: "1rem",
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#fff1e3",
+          padding: "16px",
+          borderRadius: "8px",
+          boxShadow: "none",
+        },
+      },
+    },
+  });
+
   return (
     <>
+     <ThemeProvider theme={theme}>
       <NavBar />
       {user && <SearchBar />}
       <Routes>
@@ -48,6 +106,7 @@ const App = () => {
           }
         />
       </Routes>
+      </ThemeProvider>
     </>
   );
 };

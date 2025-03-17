@@ -19,7 +19,7 @@ const PropertyCardLarge = ({ property }) => {
   }, [property._id]);
 
   return (
-    <Paper sx={{ margin: "2%", padding: "20px" }}>
+    <Paper sx={{ margin: "2%", padding: "20px", backgroundColor: "#fff1e3" }}>
       <Typography variant="h3" component="h3">
         {property.propertyName} in {property.countryOfProperty}
       </Typography>
@@ -28,20 +28,20 @@ const PropertyCardLarge = ({ property }) => {
         {property.addressLine}
       </Typography>
 
-      <Button onClick={() => navigate(`/properties/${property._id}`)}>
+      <Button onClick={() => navigate(`/properties/${property._id}`)} sx={{margin: "10px", backgroundColor:"white" }}>
         View
       </Button>
 
-      <Button>Edit</Button>
+      <Button sx={{margin: "10px", backgroundColor:"white" }}>Edit</Button>
 
-      <Button onClick={() => navigate(`/properties/requests/${property._id}`)}>
+      <Button onClick={() => navigate(`/properties/requests/${property._id}`)} sx={{margin: "10px", backgroundColor:"white" }}>
         Requests
-      </Button>
+        </Button>
       <Badge
-        sx={{ padding: "0px 0px 20px 5px" }}
+        sx={{ padding: "0px 0px 30px 2px" }}
         badgeContent={pendingHostEventsCount}
-        color="primary"
-      ></Badge>
+        color="secondary"
+        ></Badge>
     </Paper>
   );
 };

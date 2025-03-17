@@ -21,7 +21,6 @@ const PendingTrips = () => {
     const fetchHostEvents = async () => {
       const data = await showHostEventByGuestIdAndStatus(userId, status);
       setpendingHostEvents(data.hostEventsByGuestIdAndStatus);
-      console.log(data.hostEventsByGuestIdAndStatus);
     };
     fetchHostEvents();
   }, [userId]);
@@ -45,14 +44,14 @@ const PendingTrips = () => {
         Pending Trips
       </Typography>
       {pendingHostEvents.map((hostEvent) => (
-        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
+        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px", backgroundColor: "#fff1e3" }}>
            <Typography variant="h3" component="h3">
           {hostEvent.propertyId.propertyName} in {hostEvent.propertyId.countryOfProperty}
           </Typography>
           
           <Typography variant="h4" component="h4">
           Your Host, 
-          <Link underline="none" href={`/users/${hostEvent.hostId._id}`}>
+          <Link sx={{color:"lightgrey"}} underline="none" href={`/users/${hostEvent.hostId._id}`}>
           {} {hostEvent.hostId.firstName} {hostEvent.hostId.lastName}
           </Link>
           </Typography>
@@ -65,7 +64,7 @@ const PendingTrips = () => {
           {moment(hostEvent.dateStart).format("dddd, Do MMM YYYY")} - {moment(hostEvent.dateEnd).format("dddd, Do MMM YYYY")}
           </Typography>
 
-          <Button onClick={() => handleCancel(hostEvent._id)}>Cancel</Button>
+          <Button sx={{backgroundColor: "white"}} onClick={() => handleCancel(hostEvent._id)}>Cancel</Button>
         </Paper>
       ))}
     </>

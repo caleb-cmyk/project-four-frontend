@@ -54,9 +54,9 @@ const handleDecline = async (hostEventId) => {
         New Requests
       </Typography>
       {pendingHostEvents.map((hostEvent) => (
-        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
+        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px", backgroundColor: "#fff1e3" }}>
           <Typography variant="h3" component="h3">
-            <Link underline="none" href={`/users/${hostEvent.guestId._id}`}>
+            <Link sx={{color:"lightgrey"}} underline="none" href={`/users/${hostEvent.guestId._id}`}>
             {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} {}
             </Link>
             from {hostEvent.guestId.countryOfResidence}
@@ -70,8 +70,8 @@ const handleDecline = async (hostEventId) => {
           {moment(hostEvent.dateStart).format("dddd, Do MMM YYYY")} - {moment(hostEvent.dateEnd).format("dddd, Do MMM YYYY")}
           </Typography>
 
-          <Button onClick={() => handleConfirm(hostEvent._id)}>Confirm</Button>
-          <Button onClick={() => handleDecline(hostEvent._id)}>Decline</Button>
+          <Button sx={{margin: "10px", backgroundColor: "white"}} onClick={() => handleConfirm(hostEvent._id)}>Confirm</Button>
+          <Button sx={{margin: "10px", backgroundColor: "white"}} onClick={() => handleDecline(hostEvent._id)}>Decline</Button>
         </Paper>
       ))}
     </>

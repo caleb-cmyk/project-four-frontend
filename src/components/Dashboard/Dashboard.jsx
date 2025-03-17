@@ -1,10 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
-import * as userService from '../../services/userService';
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
+import * as userService from "../../services/userService";
+import { Typography } from "@mui/material";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-  const [ users, setUsers ] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -12,15 +13,21 @@ const Dashboard = () => {
         const fetchedUsers = await userService.localUser();
         setUsers(fetchedUsers);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
-    }
+    };
     if (user) fetchUsers();
   }, [user]);
 
   return (
     <main>
-      <h1>Welcome, {user.firstName}</h1>
+      <Typography
+        sx={{ margin: "2%", padding: "20px" }}
+        variant="h3"
+        component="h3"
+      >
+        Hello, {user.firstName}
+      </Typography>
     </main>
   );
 };

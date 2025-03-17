@@ -33,9 +33,9 @@ const DeclinedHostEvents = () => {
         Declined Guests
       </Typography>
       {declinedHostEvents.map((hostEvent) => (
-        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px" }}>
+        <Paper key={hostEvent._id} sx={{ margin: "2%", padding: "20px", backgroundColor: "#fff1e3" }}>
           <Typography variant="h3" component="h3">
-            <Link underline="none" href={`/users/${hostEvent.guestId._id}`}>
+            <Link sx={{color:"lightgrey"}} underline="none" href={`/users/${hostEvent.guestId._id}`}>
             {hostEvent.guestId.firstName} {hostEvent.guestId.lastName} {}
             </Link>
             from {hostEvent.guestId.countryOfResidence}
